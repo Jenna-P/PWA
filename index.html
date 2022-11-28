@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Task manager</title>
+  </head>
+  <body>
+    <!-- main structure -->
+    <div class="todo-container">
+      <div class="status" id="no_status">
+        <h2>Todo</h2>
+        <button id="add_btn" data-target-modal="#todo_form">+ Add Todo</button>
+        <div class="todo" draggable="true">
+          Hello ToDo
+          <span class="close">&times;</span>
+        </div>
+      </div>
+      <div class="status">
+        <h2>In Progress</h2>
+      </div>
+      <div class="status">
+        <h2>Self-check</h2>
+      </div>
+      <div class="status">
+        <h2>Completed</h2>
+      </div>
+    </div>
+
+    <div id="overlay"></div>
+  </body>
+</html>

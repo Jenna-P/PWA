@@ -12,12 +12,23 @@
     <div class="head">
       <h1>Task manager</h1>
     </div>
+    <!-- modal -->
+    <div class="modal" id="task_form">
+      <div class="header">
+        <div class="title">Add Todo</div>
+        <button class="btn close-modal">&times;</button>
+      </div>
+      <div class="body">
+        <input type="text" id="task_input" />
+        <input type="submit" value="Add Todo" id="task_submit" />
+      </div>
+    </div>
     <!-- main structure -->
     <div class="todo-container">
-      <div class="status" id="status-task">
+      <div class="status" id="task_status">
         <h2>Todo</h2>
         <div class="add_btn_wrapper">
-          <button id="add_btn" data-target-modal="#todo_form">+ Add Task</button>
+          <button id="add_btn" data-target-modal="#task_form">+ Add Task</button>
         </div>
         <div class="todo" draggable="true">
           Hello ToDo
@@ -36,5 +47,7 @@
     </div>
 
     <div id="overlay"></div>
+
+    <script src="script.js"></script>
   </body>
 </html>

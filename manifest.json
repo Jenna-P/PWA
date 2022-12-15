@@ -1,14 +1,21 @@
 {
+    "short_name" : "Task Manager", 
     "name" : "pwa web",
     "icons": [
         {
           "src": "images/icon/192x.png",
           "type": "image/png",
-          "sizes": "192x101"
-        }
+          "sizes": "192x192"
+        },
+        {
+            "src": "images/icon/512x.png",
+            "type": "image/png",
+            "sizes": "512x512"
+          }
        
       ],
       "background_color": "#e85e73",
       "start_url" : "./index.html",
-      "display" : "standalone"
+      "display" : "standalone",
+      "orientation" : "landscape"
 }

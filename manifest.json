@@ -1,0 +1,12 @@
+{
+    "name" : "pwa web",
+    "icons": [
+        {
+          "src": "images/icon/192x.png",
+          "type": "image/png",
+          "sizes": "192x101"
+        }
+       
+      ],
+      "background_color": "#e85e73"
+}

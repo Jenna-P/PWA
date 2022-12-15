@@ -1,0 +1,23 @@
+{
+  "name": "progressive_web_app",
+  "version": "1.0.0",
+  "description": "pwa_repo",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jenna-P/PWA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jenna-P/PWA/issues"
+  },
+  "homepage": "https://github.com/Jenna-P/PWA#readme",
+  "devDependencies": {
+    "lite-server": "^2.4.0"
+  }
+}

@@ -55,7 +55,7 @@
       if ("serviceWorker" in navigator) {
         //promise
         navigator.serviceWorker
-          .register("./service-worker.js") //Register service worker
+          .register("./service-worker.js") //Register service worker file to browser
           .then(function (success) {
             console.log("[ServiceWorker Success]", success);
           })

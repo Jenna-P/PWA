@@ -20,3 +20,16 @@ self.addEventListener('install', function(event) {
     );
 
 });
+
+self.addEventListener('fetch', function(event){
+    console.log('[Service Worker] Fetch');
+    event.respondWith(
+      caches.match(event.request) //return cache that match network request
+        .then(function(response){
+          return response || fetch(event.request);
+        })
+        .catch(function(error){
+          return console.log(error);
+        })
+    );
+  });

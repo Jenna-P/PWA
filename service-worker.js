@@ -1,5 +1,13 @@
+// // name for to save cache storage
+// var CACHE_NAME = 'pwa-offline-v1';
+// // web resource for cachinig
+// var filesToCache = [
+//     '/',   //index.html
+//     '/style.css'
+// ];
+
 // name for to save cache storage
-var CACHE_NAME = 'pwa-offline-v1';
+var CACHE_NAME = 'pwa-offline-v2';
 // web resource for cachinig
 var filesToCache = [
     '/',   //index.html
@@ -31,5 +39,24 @@ self.addEventListener('fetch', function(event){
         .catch(function(error){
           return console.log(error);
         })
+    );
+  });
+
+  //when caches changed (need to update caches)
+  self.addEventListener('activate', function(event) {
+    var newCacheList = ['pwa-offline-v2'];
+  //delete previous caches and push new cache
+    event.waitUntil(
+      caches.keys().then(function(cacheList) {  //caches.keys() : return all cache list from cache storage
+        return Promise.all(
+          cacheList.map(function(cacheName) {
+            if (newCacheList.indexOf(cacheName) === -1) {
+              return caches.delete(cacheName);
+            }
+          })
+        )
+      }).catch(function(error) {
+        return console.log(error);
+      })
     );
   });

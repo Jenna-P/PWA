@@ -82,6 +82,11 @@ todos.forEach((todo) => {
   todo.addEventListener("dragend", dragEnd);
 });
 
+if (window.screen.width <= 750 && window.screen.height <= 420) {
+  
+}
+
+
 function dragStart() {
   draggableTodo = this;
   setTimeout(() => {

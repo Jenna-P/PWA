@@ -166,3 +166,6 @@
   border: none;
 }
   
+.active {
+  border: 1px dashed #ccc;
+}

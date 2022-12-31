@@ -75,6 +75,7 @@ btns.forEach((btn) => {
 //   drag and drop
 const todos = document.querySelectorAll(".todo");
 const all_status = document.querySelectorAll(".status");
+const wrapper = document.querySelector('.todo-container');
 let draggableTodo = null;
 
 todos.forEach((todo) => {
@@ -82,15 +83,10 @@ todos.forEach((todo) => {
   todo.addEventListener("dragend", dragEnd);
 });
 
-if (window.screen.width <= 750 && window.screen.height <= 420) {
-  
-}
-
-
 function dragStart() {
   draggableTodo = this;
   setTimeout(() => {
-    this.style.display = "none";
+    this.style.opacity = "0.2";
   }, 0);
   console.log("dragStart");
 }
@@ -99,6 +95,7 @@ function dragEnd() {
   draggableTodo = null;
   setTimeout(() => {
     this.style.display = "block";
+    this.style.opacity = "1";
   }, 0);
   console.log("dragEnd");
 }
@@ -129,4 +126,26 @@ function dragDrop() {
   this.style.border = "none";
   this.appendChild(draggableTodo);
   console.log("dropped");
+}
+
+//touchable
+if (window.screen.width <= 750 && window.screen.height <= 420) {
+  todos.forEach((todo) => {
+    todo.addEventListener('touchmove', touchMove);
+    todo.addEventListener('touchend', touchEnd);
+
+  let itemAppend = null;
+// ------------------------ touchMove
+  function touchMove(event) {
+      event.preventDefault();
+      let touch = event.targetTouches[0];
+      todo.style.top = `${touch.pageY - (wrapper.offsetTop) - (todo.offsetWidth / 2)}px`;
+      todo.style.left = `${touch.pageX - (wrapper.offsetLeft) - (todo.offsetHeight / 2)}px`;   
+  }
+
+  function touchEnd() {
+      this.style.top = `${itemAppend.offsetTop}px`;
+      this.style.left = `${itemAppend.offsetLeft}px`;     
+  }
+});
 }

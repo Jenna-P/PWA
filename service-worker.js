@@ -6,7 +6,6 @@
 //     '/style.css'
 // ];
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/5.1.2/workbox-sw.js');
 
 // name for to save cache storage
 var CACHE_NAME = 'pwa-offline-v2';
@@ -15,8 +14,6 @@ var filesToCache = [
     '/',   //index.html
     '/style.css'
 ];
-
-const offlineFallbackPage = "index.html";
 
 
 self.addEventListener("message", (event) => {

@@ -15,7 +15,7 @@
        
       ],
       "background_color": "#e85e73",
-      "start_url" : "./index.html",
+      "start_url" : "https://jenna-p.github.io/PWA/",
       "display" : "standalone",
       "orientation" : "landscape"
 }

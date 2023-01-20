@@ -10,13 +10,14 @@
         {
             "src": "images/icon/512x.png",
             "type": "image/png",
-            "sizes": "512x512"
+            "sizes": "512x512",
+            "purpose": "any maskable"
           }
        
       ],
       "background_color": "#e85e73",
       "theme_color": "#000000",
-      "start_url" : "https://jenna-p.github.io/PWA/",
+      "start_url" : ".",
       "display" : "standalone",
       "orientation" : "landscape"
 }

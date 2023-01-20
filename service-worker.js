@@ -9,13 +9,6 @@ var filesToCache = [
 ];
 
 
-self.addEventListener("message", (event) => {
-  if (event.data && event.data.type === "SKIP_WAITING") {
-    self.skipWaiting();
-  }
-});
-
-
 //install service worker (web resource caching)
 self.addEventListener('install', function(event) {
     event.waitUntil(

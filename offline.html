@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="manifest" href="manifest.json" />
+    <title>PWA web - Task manager</title>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <!-- title div -->
+    <div class="head">
+      <h1>Task manager</h1>
+    </div>
+    <!-- modal -->
+    <div class="modal" id="task_form">
+      <div class="header">
+        <div class="title">Add Todo</div>
+        <button class="btn close-modal">&times;</button>
+      </div>
+      <div class="body">
+        <input type="text" id="task_input" />
+        <input type="submit" value="Add Todo" id="task_submit" />
+      </div>
+    </div>
+    <!-- main structure -->
+    <div class="todo-container">
+      <div class="status" id="task_status">
+        <h2>Todo</h2>
+        <div class="add_btn_wrapper">
+          <button id="add_btn" data-target-modal="#task_form">+ Add Task</button>
+        </div>
+        <div class="todo" draggable="true">
+          Hello ToDo
+          <span class="close">&times;</span>
+        </div>
+      </div>
+      <div class="status">
+        <h2>In Progress</h2>
+      </div>
+      <div class="status">
+        <h2>Self-check</h2>
+      </div>
+      <div class="status">
+        <h2>Completed</h2>
+      </div>
+    </div>
+
+    <div id="overlay"></div>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        //promise
+        navigator.serviceWorker
+          .register("./service-worker.js") //Register service worker file to browser
+          .then(function (success) {
+            console.log("[ServiceWorker Success]", success);
+          })
+          .catch(function (error) {
+            console.log("[ServiceWorker Fail]", error);
+          });
+      }
+    </script>
+  </body>
+</html>

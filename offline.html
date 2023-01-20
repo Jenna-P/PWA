@@ -4,9 +4,178 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
     <title>PWA web - Task manager</title>
     <script src="script.js" defer></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+      }
+
+      .head {
+        margin-top: 10px;
+        text-align: center;
+      }
+
+      .head h1 {
+        color: #58585a;
+      }
+      .todo-container {
+        width: 100%;
+        height: 80vh;
+        display: flex;
+      }
+
+      .status {
+        width: 25%;
+        background-color: #f3f3f3;
+        position: relative;
+        padding: 60px 1rem 0.5rem;
+      }
+
+      .status:nth-child(even) {
+        background-color: #d4d0d06b;
+      }
+
+      .status h2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        text-align: center;
+        background-color: #e85e73;
+        color: #f3f3f3;
+        margin: 0;
+        width: 100%;
+        padding: 0.5rem 1rem;
+        font-size: 18px;
+      }
+
+      .add_btn_wrapper {
+        text-align: right;
+      }
+
+      #add_btn {
+        padding: 0.5rem;
+        background-color: #ccc;
+        outline: none;
+        border: none;
+        width: 60%;
+        font-size: 14px;
+        margin-top: 0;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      #add_btn:hover {
+        background-color: #aaa;
+      }
+
+      .todo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        background-color: #fff;
+        box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        font-size: 18px;
+        margin: 1rem 0;
+      }
+
+      .todo .close {
+        position: absolute;
+        right: 0.5rem;
+        top: 0rem;
+        font-size: 1rem;
+        color: #ccc;
+        cursor: pointer;
+      }
+
+      .todo .close:hover {
+        color: #343444;
+      }
+
+      /* modal */
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+
+      .modal {
+        width: 500px;
+        height: 200px;
+        position: fixed;
+        top: -50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition: top 0.3s ease-in-out;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        z-index: 2;
+        background-color: #fff;
+      }
+
+      .modal.active {
+        top: 25%;
+      }
+
+      .modal .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ccc;
+        padding: 0.5rem;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      .modal .body {
+        padding: 0.75rem;
+      }
+
+      #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+
+      #overlay.active {
+        display: block;
+      }
+
+      #task_input {
+        width: 100%;
+        height: 60px;
+        margin-bottom: 10px;
+      }
+      #task_submit {
+        padding: 0.5rem 1rem;
+        width: 100%;
+        margin: 0.25rem;
+        cursor: pointer;
+      }
+
+      #task_submit {
+        background-color: #59af8e;
+        color: #f3f3f3;
+        font-size: 1.25rem;
+        border: none;
+      }
+
+      .active {
+        border: 1px dashed #ccc;
+      }
+    </style>
   </head>
   <body>
     <!-- title div -->
@@ -48,5 +217,159 @@
     </div>
 
     <div id="overlay"></div>
+
+    <script>
+      // modals
+      const btns = document.querySelectorAll("[data-target-modal]");
+      const close_modals = document.querySelectorAll(".close-modal");
+      const overlay = document.getElementById("overlay");
+
+      btns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelector(btn.dataset.targetModal).classList.add("active");
+          overlay.classList.add("active");
+          console.log("click");
+        });
+      });
+
+      close_modals.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const modal = btn.closest(".modal");
+          modal.classList.remove("active");
+          overlay.classList.remove("active");
+        });
+      });
+
+      window.onclick = (event) => {
+        if (event.target == overlay) {
+          const modals = document.querySelectorAll(".modal");
+          modals.forEach((modal) => modal.classList.remove("active"));
+          overlay.classList.remove("active");
+        }
+      };
+
+      /* create todo  */
+      const task_submit = document.getElementById("task_submit");
+
+      task_submit.addEventListener("click", createTodo);
+
+      function createTodo() {
+        // create div
+        const todo_div = document.createElement("div");
+        const input_val = document.getElementById("task_input").value;
+        const txt = document.createTextNode(input_val);
+
+        todo_div.appendChild(txt);
+        todo_div.classList.add("todo");
+        todo_div.setAttribute("draggable", "true");
+
+        /* create span */
+        const span = document.createElement("span");
+        const span_txt = document.createTextNode("\u00D7");
+        span.classList.add("close");
+        span.appendChild(span_txt);
+
+        todo_div.appendChild(span);
+        task_status.appendChild(todo_div);
+
+        span.addEventListener("click", () => {
+          span.parentElement.style.display = "none";
+        });
+        // console.log(todo_div);
+
+        todo_div.addEventListener("dragstart", dragStart);
+        todo_div.addEventListener("dragend", dragEnd);
+
+        document.getElementById("task_input").value = "";
+        task_form.classList.remove("active");
+        overlay.classList.remove("active");
+      }
+
+      const close_btns = document.querySelectorAll(".close");
+
+      close_btns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btn.parentElement.style.display = "none";
+        });
+      });
+
+      //   drag and drop
+      const todos = document.querySelectorAll(".todo");
+      const all_status = document.querySelectorAll(".status");
+      const wrapper = document.querySelector(".todo-container");
+      let draggableTodo = null;
+
+      todos.forEach((todo) => {
+        todo.addEventListener("dragstart", dragStart);
+        todo.addEventListener("dragend", dragEnd);
+      });
+
+      function dragStart() {
+        draggableTodo = this;
+        setTimeout(() => {
+          this.style.opacity = "0.2";
+        }, 0);
+        console.log("dragStart");
+      }
+
+      function dragEnd() {
+        draggableTodo = null;
+        setTimeout(() => {
+          this.style.display = "block";
+          this.style.opacity = "1";
+        }, 0);
+        console.log("dragEnd");
+      }
+
+      all_status.forEach((status) => {
+        status.addEventListener("dragover", dragOver);
+        status.addEventListener("dragenter", dragEnter);
+        status.addEventListener("dragleave", dragLeave);
+        status.addEventListener("drop", dragDrop);
+      });
+
+      function dragOver(e) {
+        e.preventDefault();
+        //   console.log("dragOver");
+      }
+
+      function dragEnter() {
+        this.style.border = "1px dashed #ccc";
+        console.log("dragEnter");
+      }
+
+      function dragLeave() {
+        this.style.border = "none";
+        console.log("dragLeave");
+      }
+
+      function dragDrop() {
+        this.style.border = "none";
+        this.appendChild(draggableTodo);
+        console.log("dropped");
+      }
+
+      //touchable
+      if (window.screen.width <= 750 && window.screen.height <= 420) {
+        todos.forEach((todo) => {
+          todo.addEventListener("touchmove", touchMove);
+          todo.addEventListener("touchend", touchEnd);
+
+          let itemAppend = null;
+          // ------------------------ touchMove
+          function touchMove(event) {
+            event.preventDefault();
+            let touch = event.targetTouches[0];
+            todo.style.top = `${touch.pageY - wrapper.offsetTop - todo.offsetWidth / 2}px`;
+            todo.style.left = `${touch.pageX - wrapper.offsetLeft - todo.offsetHeight / 2}px`;
+          }
+
+          function touchEnd() {
+            this.style.top = `${itemAppend.offsetTop}px`;
+            this.style.left = `${itemAppend.offsetLeft}px`;
+          }
+        });
+      }
+    </script>
   </body>
 </html>

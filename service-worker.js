@@ -8,7 +8,6 @@ var filesToCache = [
     'offline.html'
 ];
 
-
 //install service worker (web resource caching)
 self.addEventListener('install', function(event) {
     event.waitUntil(

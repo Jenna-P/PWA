@@ -1,6 +1,6 @@
 
 // name for to save cache storage
-var CACHE_NAME = 'pwa-offline-v1';
+var CACHE_NAME = 'pwa-v1.0';
 // web resource for cachinig
 var filesToCache = [
     '/',   //index.html

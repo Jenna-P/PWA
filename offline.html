@@ -48,19 +48,5 @@
     </div>
 
     <div id="overlay"></div>
-
-    <script>
-      if ("serviceWorker" in navigator) {
-        //promise
-        navigator.serviceWorker
-          .register("./service-worker.js") //Register service worker file to browser
-          .then(function (success) {
-            console.log("[ServiceWorker Success]", success);
-          })
-          .catch(function (error) {
-            console.log("[ServiceWorker Fail]", error);
-          });
-      }
-    </script>
   </body>
 </html>

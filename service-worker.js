@@ -56,7 +56,7 @@ self.addEventListener('fetch', (event) => {
       caches.keys().then(function(cacheList) {  //caches.keys() : return all cache list from cache storage
         return Promise.all(
           cacheList.map(function(cacheName) {
-            if (newCacheList.indexOf(cacheName) === -1) {
+            if (!newCacheList.includes(cacheName)) {
               return caches.delete(cacheName);
             }
           })
